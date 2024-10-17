@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cric Hype</title>
+  <link rel="stylesheet" href="https://cxh.pages.dev/style.css">
+</head>
+<body>
+<style>
+  #player {
+    position: absolute;
+    width: 100% !important;
+    height: 100% !important;
+  }
+</style>
+
+<div id="player"></div>
+<script src='https://content.jwplatform.com/libraries/KB5zFt7A.js'></script>
+<script>
+  // Function to get the query string parameter
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+
+  const videoUrl = getQueryParam('videourl');
+
+  const playerInstance = jwplayer("player").setup({
+    controls: true,
+    displaytitle: true,
+    autoplay: true,
+    displaydescription: true,
+    abouttext: "Video Player By CricHype",
+    aboutlink: "https://telegram.me/CricHype",
+    skin: {
+      name: "netflix"
+    },
+    logo: {
+      file: "https://cxh.pages.dev/CXH.png",
+      link: "https://telegram.me/CricHype"
+    },
+    captions: {
+      color: "#FFF",
+      fontSize: 14,
+      backgroundOpacity: 0,
+      edgeStyle: "raised"
+    },
+    playlist: [
+      {
+        image: "",
+        sources: [
+          {
+            file: videoUrl, // Use the video URL from the query string
+            type: "hls",
+            label: "1080p",
+            default: true
+          }
+        ]
+      }
+    ],
+    advertising: {
+      client: "vast",
+      schedule: [
+        {
+          offset: "pre",
+          tag: ""
+        }
+      ]
+    }
+  });
+
+  playerInstance.on("ready", function () {
+    // Custom button setup and other functionalities here...
+
+    // Button click action to download video
+    playerInstance.addButton(iconPath, tooltipText, buttonClickAction, buttonId);
+    function buttonClickAction() {
+      const playlistItem = playerInstance.getPlaylistItem();
+      const anchor = document.createElement("a");
+      const fileUrl = playlistItem.file;
+      anchor.setAttribute("href", fileUrl);
+      const downloadName = playlistItem.file.split("/").pop();
+      anchor.setAttribute("download", downloadName);
+      anchor.style.display = "none";
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+    }
+
+    // Other player functionalities...
+  });
+
+  var a = confirm("Join For More Links!!");
+  if (a == true) {
+    window.location.href = "https://telegram.me/CricHype";
+  }
+  function welcome() {
+    window.open("https://telegram.me/CricHype");
+  }
+</script>
+<script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script>
+<!-- Cloudflare Pages Analytics -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "89ec3c1c820d4609b4a3643417d2cb06"}'></script>
+<!-- Cloudflare Pages Analytics -->
+</body>
+</html>
